@@ -108,18 +108,36 @@ class Tweet {
 
         return $ret;
     }
-//    static public function loadAllTweetByUserId($conn){
-//        $otherUserId='';
-//        $allTweets= $this->loadAllTweets($conn);
-//        $tweets=[];
-//        foreach($allTweets as $tweet){
-//            if($tweet->getUserId() == $otherUserId){
-//                $tweets[]=$tweet;
-//            }
-//        }
-//        return $tweets;
-//        
-//    
-//    }
-
+    static public function loadAllTweetByUserId($conn, $userId){
+        
+           $query = "SELECT * FROM Tweets WHERE user_id='$userId' ORDER BY creation_date DESC";
+        $result = $conn->query($query);
+       
+        $tweets = array();
+        
+      if($result !== false){  
+        if($result->num_rows > 0){
+                foreach($result as $row){
+                    $tweet = new Tweet();
+                    $tweet->id = $row['id'];
+                    $tweet->userId = $row['user_id'];
+                    $tweet->creationDate = $row['creation_date'];
+                    $tweet->text = $row['content'];
+                    $tweets[] = $tweet;
+                }
+                return $tweets;
+    
+       } else {
+            return false;
+            }
+        } else {
+            return false;
+        }
+    
+    
 }
+  
+        
+    
+    }
+

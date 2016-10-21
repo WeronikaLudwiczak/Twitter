@@ -2,7 +2,7 @@
 
 
 class User {
-
+    
     private $id;
     private $email;
     private $username;
@@ -10,9 +10,9 @@ class User {
 
     public function __construct() {
         $this->id = -1;
-        $this->email = "";
-        $this->username = "";
-        $this->hashedPassword = "";
+        $this->email = null;
+        $this->username = null;
+        $this->hashedPassword = null;
     }
 
     public function getId() {
@@ -40,9 +40,11 @@ class User {
     }
 
     public function setPassword($password) {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $hashedPassword = password_hash($password,PASSWORD_BCRYPT);
         $this->hashedPassword = $hashedPassword;
     }
+    
+    
 
     public function saveToDB(mysqli $conn) {
         if ($this->id == -1) {
@@ -61,8 +63,8 @@ class User {
             
             $result = $conn->query($sql);
             
-            if($result == TRUE)
-            {
+            if($result == TRUE){
+            
                 return TRUE;
             }
         }
@@ -88,13 +90,13 @@ class User {
 
         return NULL;
     }
-
-    static public function loadAllUsers(mysqli $conn) {
+        static public function loadAllUsers(mysqli $conn) {
+      
         $sql = "SELECT * FROM User;";
 
         $result = $conn->query($sql);
 
-        $ret = [];
+        $users = [];
 
         if ($result == TRUE) {
             foreach ($result as $row) {
@@ -104,16 +106,43 @@ class User {
                 $user->username = $row['username'];
                 $user->hashedPassword = $row['hashed_password'];
 
-                $ret[] = $user;
+                $users[] = $user;
             }
         }
 
-        return $ret;
+        return $users;
     }
-    public function delete(mysqli $connection){
+    
+
+    
+    static public function LogIn(mysqli $conn, $email, $password)
+    {
+        $toReturn = null;
+        $sql = "SELECT * FROM User WHERE email='{$email}'";
+        $result = $conn->query($sql);
+        if ($result != false) {
+            if ($result->num_rows === 1) {
+                $row = $result->fetch_assoc();
+                $loggedUser = new User();
+                $loggedUser->id = $row['id'];
+                $loggedUser->email = $row['email'];
+                $loggedUser->username = $row['username'];
+                $loggedUser->hashedPassword = $row['hashed_password'];
+           
+                
+                if ($loggedUser->verifyPassword($password)) {
+                    $toReturn = $loggedUser;
+                }
+            }
+        }
+        return $toReturn;
+    }
+
+
+    public function delete(mysqli $conn){
         if($this->id != -1){
             $sql = "DELETE FROM User WHERE id=$this->id";
-            $result = $connection->query($sql);
+            $result = $conn->query($sql);
                 if($result == true){
                     $this->id = -1;
                     return true;
@@ -123,6 +152,13 @@ class User {
                         }   
                     return true;
         }
+    
+        
+   public function verifyPassword($password)
+    {
+        return password_verify($password, $this->hashedPassword);
+    }
 
+    
 }
-
+        

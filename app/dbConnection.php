@@ -1,21 +1,30 @@
 <?php
+session_start();
 
-function connectToDatabase() {
-$host = "localhost";
-$user = "root";
-$password = "root";
-$dbName = "twitter_db";
+require_once '../src/User.php';
+
+require_once "../scripts/config.php";
      
     $conn = new mysqli($host, $user, $password, $dbName);
     if ($conn->connect_error == False) {
-     // return $conn;
-      echo "Jestes polaczony";
+     return $conn;
+    
     }else {
          die('Unable to connect to database: ' . $conn->connect_error);
     
 }
 
+    
+
+
+
+function redirectIfNotLogged(){
+    if(isset($_SESSION["loggedUserId"]) === false){
+        header("Location:login.php");
     }
-
-
- connectToDatabase();
+}
+function redirectIfLoggedIn(){
+    if(isset($_SESSION["loggedUserId"]) === true){
+        header("Location:index.php");
+    }
+}

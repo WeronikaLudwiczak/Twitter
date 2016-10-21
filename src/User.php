@@ -39,9 +39,13 @@ class User {
         $this->username = $username;
     }
 
-    public function setPassword($password) {
-        $hashedPassword = password_hash($password,PASSWORD_BCRYPT);
+    public function setPassword($password1, $password2) {
+        if($password1 != $password2){
+            return false;
+        }
+        $hashedPassword = password_hash($password1,PASSWORD_BCRYPT);
         $this->hashedPassword = $hashedPassword;
+        return true;
     }
     
     

@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
        if($correctPassword){
      $registerSucess= $newUser->saveToDB($conn);
        }else{
-           echo ("Check your password!");
+           echo ('<div class="alert alert-dismissible alert-danger">Check your password! Registration Failed</div>');
            echo ('<br>');
        }
       
@@ -25,8 +25,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
      if(!empty($registerSucess)){
         $_SESSION['loggedUserId'] = $newUser->getId();
         header("Location:index.php");
-    }else{
-        echo "Registration failed";
     }
 }
 
@@ -43,34 +41,48 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 </head>
 <body>
 <div class="container">
-    <div class="title">
-        <h1>Hello! Create your account :)</h1>
+    <div class="well">
+        <h3 class="text-primary">Hello! Create your account :)</h3><br>
     </div>
-    <div class="log">
-<form method="post">
-    <p>
-        <label for="mail">Email</label>
-        <input type="email" name="email" placeholder="Email address">
-    </p>
-        <p>
-        <label for="username">User Name</label>
-        <input type="text" name="username" placeholder="User Name">
-    </p>
-    <p>
-        <label for="password">Passowrd</label>
-        <input type="password" name="password1" placeholder="Password">
-    </p>
-        <p>
-        <label for="password">Confirmed your Passowrd</label>
-        <input type="password" name="password2" placeholder="Password">
-    </p>
+    <div class="form-group">
 
-    <p>
+    <form  method ="post" class="form-horizontal">
+  <fieldset>
+      <legend><strong>Form</strong></legend>
+    
+    <label  class="col-lg-2 control-label" for="mail">Email</label>
+      <div class="col-lg-10">
+        <input class="form-control" type="email" name="email" placeholder="Email address"><br>
+      </div>
+    
+        
+    <label class="col-lg-2 control-label" for="username">User Name</label>
+      <div class="col-lg-10">
+          <input class="form-control" type="text" name="username" placeholder="User Name"><br>
+      </div>
+    
+    <label class="col-lg-2 control-label" for="password">Passowrd</label>
+      <div class="col-lg-10">
+          <input class="form-control" type="password" name="password1" placeholder="Password"><br>
+      </div>  
+        
+    <label class="col-lg-2 control-label" for="password">Confirmed your Passowrd</label>
+      <div class="col-lg-10">
+          <input class="form-control" type="password" name="password2" placeholder="Password"><br>
+      </div>
+
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
         <button type="submit" class="btn" name="register">Create your account</button>
-    </p>
-    <p><a href="login.php">I have account. Log In</a></p>
+       <p> <a href="login.php">I have account.</a></p>
+      </div>
     </div>
+ 
+    
+    </div>
+  </fieldset>
 </form>
+        
 
 </div>
 </body>

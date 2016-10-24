@@ -88,7 +88,7 @@ class Tweet {
         return NULL;
     }
     static public function loadAllTweets(mysqli $conn) {
-        $sql = "SELECT * FROM Tweets;";
+        $sql = "SELECT * FROM Tweets ORDER BY creation_date DESC;";
 
         $result = $conn->query($sql);
 

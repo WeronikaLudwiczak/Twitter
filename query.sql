@@ -12,7 +12,7 @@ CREATE TABLE User(
 
 CREATE TABLE Tweets (
   id INT AUTO_INCREMENT NOT NULL,
-  creation_date Date NOT NULL,
+  creation_date DATETIME NOT NULL,
   content VARCHAR(140) NOT NULL,
   user_id INT,
   PRIMARY KEY (id),

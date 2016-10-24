@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['newTweet'])) {
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ><a href="#">Your Profile</a></li>
+          <li ><a href='user_site.php'>Your Profile</a></li>
         <li><a href="#">Users</a></li>
         <li><a href="#">Comments</a></li>
       </ul>
@@ -110,7 +110,7 @@ if($allTweets){
       <td><?php echo "{$tweet->getCreationDate()}";?></td>
       <td><?php echo "{$user->getUsername()}";?></td>
       <td><?php echo "{$tweet->getText()}";?></td>
-      <td><a class="btn btn-link" href="index.php?post_id=' . $tweet->getId() . '">More about Tweet</a></td>
+      <td><a class="btn btn-link" href="index.php?tweet_id=' . $tweet->getId() . '">More about Tweet</a></td>
     </tr>
     
                <?php

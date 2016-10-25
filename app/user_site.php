@@ -37,7 +37,7 @@ if (isset($_SESSION['loggedUserId'])) {
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ><a href="#">Edit Your Profile</a></li>
+          <li ><a href="user_edit.php">Edit Your Profile</a></li>
         <li><a href="#">Send Message</a></li>
         <li><a href="#">Users</a></li>
       </ul>

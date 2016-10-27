@@ -1,0 +1,157 @@
+<?php
+require_once '../src/User.php';
+require_once '../src/Tweet.php';
+require_once '../src/Comment.php';
+require_once 'dbConnection.php';
+
+redirectIfNotLogged();
+
+
+if (isset($_SESSION['loggedUserId'])) {
+    $loggedUser = User::loadUserById($conn, $_SESSION['loggedUserId']);
+} else {
+    echo "Error. Please log In again.";
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new_comment']) && strlen($_POST['new_comment']) > 0) {
+    $date = date('Y-m-d h:i:s');
+    $tweet_id = $_GET['tweet_id'];
+    $newComment = new Comment();
+    $newComment->setCreationDate($date);
+    $newComment->setText($_POST['new_comment']);
+    $newComment->setTweetId($_GET['tweet_id']);
+    $newComment->setUserId($_SESSION['loggedUserId']);
+    $newComment->saveToDB($conn);
+    header("Location: tweet_site.php?tweet_id={$tweet_id}");
+} else {
+    echo "Write your comment";
+}
+?>
+
+
+
+<html>
+    <head>
+        <title>Tweet Page</title>
+        <meta charset="UTF-8">
+        <link href="../css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <p>Logged as: <a href="user_site.php" class="btn btn-link"><?php echo $loggedUser->getUsername(); ?></a></p>
+
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.php">Twitter</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li ><a href='user_site.php'>Your Profile</a></li>
+                        <li><a href="all_users.php">Users</a></li>
+                        <li><a href="#">Comments</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href='logout.php'>Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <h3>Tweet details: </h3>
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $tweetId = $_GET['tweet_id'];
+            $tweet = Tweet::loadTweetById($conn, $tweetId);
+            $userId = $tweet->getUserId();
+            $userTweet = User::loadUserById($conn, $userId);
+
+
+            echo "<p><strong>Creation date: </strong>" . $tweet->getCreationDate() . "</p>";
+            echo "<p><strong>User Name: </strong>" . $userTweet->getUsername() . "</p>";
+            echo '
+        <div class="well" style="width: 50%">
+            <p><strong>Tweet: </strong>' . $tweet->getText() . '</p>
+        </div>';
+            ?>
+            <section>
+                <div class="container">
+                    <form  method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Write your Comment:</label>
+                            <div class="col-sm-7 form-group">
+                                <input  class="form-control" type="text" name="new_comment"  style="height: 100px">        
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <br>
+            </section>
+    <?php
+    
+    $comments = Comment::getCommentByTweetId($conn, $tweetId);
+    if ($comments !== false) {
+        $numberOfComments = count($comments);
+    } else {
+        $numberOfComments = 0;
+    }
+
+    echo '
+    </section>
+    <h2 class="text-primary">Comments (' . $numberOfComments . ')</h2>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <tr>
+
+                <th>Date</th>
+                <th>User</th>
+                <th>Comments</th>
+               
+        </thead>';
+
+    if ($comments) {
+        foreach ($comments as $comment) {
+            $userCommentId = $comment->getUserId();
+            $userCommnet = User::loadUserById($conn, $userCommentId);
+
+            echo '
+                   <tbody>
+                    <tr class="active">';
+            echo "<td>{$comment->getCreationDate()}</td>";
+            echo "<td>{$userCommnet->getUsername()}</td>";
+            echo "<td>{$comment->getText()}</td>";
+        }
+    } else {
+        echo "no Commnets";
+    }
+}
+?>
+
+    </body>
+</html>
+
+
+<?php
+$conn->close();
+$conn = null;
+?>
+
+
+
+
+
+

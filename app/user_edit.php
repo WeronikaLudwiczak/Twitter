@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li ><a href='user_site.php'>Your Profile</a></li>
-                        <li><a href="#">Users</a></li>
+                        <li><a href="all_users.php">Users</a></li>
                         <li><a href="#">Comments</a></li>
                     </ul>
 

@@ -39,7 +39,7 @@ if (isset($_SESSION['loggedUserId'])) {
       <ul class="nav navbar-nav">
           <li ><a href="user_edit.php">Edit Your Profile</a></li>
         <li><a href="#">Send Message</a></li>
-        <li><a href="#">Users</a></li>
+        <li><a href="user_site.php">Users</a></li>
       </ul>
  
       <ul class="nav navbar-nav navbar-right">
@@ -73,7 +73,7 @@ if (isset($_SESSION['loggedUserId'])) {
     <tr class="active">
       <td><?php echo "{$tweet->getCreationDate()}";?></td>
       <td><?php echo "{$tweet->getText()}";?></td>
-      <td><a class="btn btn-link" href="index.php?post_id=' . $tweet->getId() . '">More about Tweet</a></td>
+      <td><?php echo "(<a class='btn btn-link' href='tweet_site.php?tweet_id={$tweet->getId()}'>More about Tweet</a>)";?></td>
     </tr>
     <?php
     }

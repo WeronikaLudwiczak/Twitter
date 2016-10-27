@@ -2,6 +2,7 @@
 
 require_once '../src/Tweet.php';
 require_once '../src/User.php';
+require_once '../src/Comment.php';
 require_once 'dbConnection.php';
 redirectIfNotLogged();
 
@@ -50,14 +51,14 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['newTweet'])) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Twitter</a>
+        <a class="navbar-brand" href="index.php">Twitter</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
           <li ><a href='user_site.php'>Your Profile</a></li>
           <li><a href="all_users.php">Users</a></li>
-        <li><a href="#">Comments</a></li>
+        <li><a href="#">Messages</a></li>
       </ul>
  
       <ul class="nav navbar-nav navbar-right">
@@ -94,15 +95,22 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['newTweet'])) {
       <th>Date</th>
       <th>User</th>
       <th>Tweet</th>
+      <th>Comments</th>
       <th>Action</th>
   </thead>
     <?php
+  
   $allTweets = Tweet::loadAllTweets($conn);
 if($allTweets){
     foreach($allTweets as $tweet){
                 $userId = $tweet->getUserId();
-                $user = new User();
                 $user=  User::loadUserById($conn, $userId);
+                $comments= Comment::getCommentByTweetId($conn, $tweet->getId());
+                if($comments !==false){
+                $numberOfComments=  count($comments);
+                }else{
+                    $numberOfComments=0;
+                }
                 ?>
 
   <tbody>
@@ -110,10 +118,11 @@ if($allTweets){
       <td><?php echo "{$tweet->getCreationDate()}";?></td>
       <td><?php echo "{$user->getUsername()}";?></td>
       <td><?php echo "{$tweet->getText()}";?></td>
-      <td><a class="btn btn-link" href="index.php?tweet_id=' . $tweet->getId() . '">More about Tweet</a></td>
-    </tr>
-    
+      <td><?php echo "$numberOfComments";?></td>
+      <td><?php echo ("<a  href='tweet_site.php?tweet_id={$tweet->getId()}' class='btn btn-link' >More about Tweet</a></td>");?>    </tr>
+   
                <?php
+               
     }
     }else{
         echo "No Tweets";

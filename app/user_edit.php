@@ -106,6 +106,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
 </div>
+<?php
+
+echo "<a href='delete_User.php?user={$loggedUser->getId()}' class='btn btn-link'>Delete your Account</a>";
+?>
 </body>
 </html>
 

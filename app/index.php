@@ -42,31 +42,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST' && isset($_POST['newTweet'])) {
 <body>
     <p>Logged as: <a href="#" class="btn btn-link"><?php echo $loggedUser->getUsername();?></a></p>
     
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-        <a class="navbar-brand" href="index.php">Twitter</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-          <li ><a href='user_site.php'>Your Profile</a></li>
-          <li><a href="all_users.php">Users</a></li>
-        <li><a href="#">Messages</a></li>
-      </ul>
- 
-      <ul class="nav navbar-nav navbar-right">
-          <li><a href='logout.php'>Log Out</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<?php
+include 'menu.html';
+?>
+    
     
  <section>
         <div class="container">

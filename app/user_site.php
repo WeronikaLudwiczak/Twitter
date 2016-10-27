@@ -1,6 +1,7 @@
 <?php
 require_once '../src/Tweet.php';
 require_once '../src/User.php';
+require_once '../src/Comment.php';
 require_once 'dbConnection.php';
 redirectIfNotLogged();
 
@@ -62,18 +63,27 @@ if (isset($_SESSION['loggedUserId'])) {
       <th>Date</th>
       <th>Tweet</th>
       <th>Comments</th>
+      <th>Action</th>
   </thead>
     <?php
     $userId=$loggedUser->getId();
     $allUserTweets= Tweet::loadAllTweetByUserId($conn, $userId);
+   
     if($allUserTweets){
     foreach($allUserTweets as $tweet){
+         $comments= Comment::getCommentByTweetId($conn, $tweet->getId());
+            if ($comments !== false) {
+        $numberOfComments = count($comments);
+    } else {
+        $numberOfComments = 0;
+    }
        ?>  
   <tbody>
     <tr class="active">
       <td><?php echo "{$tweet->getCreationDate()}";?></td>
       <td><?php echo "{$tweet->getText()}";?></td>
-      <td><?php echo "(<a class='btn btn-link' href='tweet_site.php?tweet_id={$tweet->getId()}'>More about Tweet</a>)";?></td>
+      <td><?php echo "$numberOfComments";?></td>
+      <td><?php echo ("<a class='btn btn-link' href='tweet_site.php?tweet_id={$tweet->getId()}'>More about Tweet</a>");?></td>
     </tr>
     <?php
     }

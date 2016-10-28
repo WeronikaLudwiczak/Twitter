@@ -118,7 +118,7 @@ class Message {
 
         $result = $conn->query($sql);
 
-        $ret = [];
+        $messages = [];
 
         if ($result == TRUE) {
             foreach ($result as $row) {
@@ -130,11 +130,11 @@ class Message {
             $Message->creationDate = $row['creation_date'];
             $Message->ifRead = $row['if_read'];
 
-                $ret[] = $Message;
+                $messages[] = $Message;
             }
         }
 
-        return $ret;
+        return $messages;
     }
     
     
@@ -156,11 +156,11 @@ class Message {
             $Message->creationDate = $row['creation_date'];
             $Message->ifRead = $row['if_read'];
 
-                $ret[] = $Message;
+                $messages[] = $Message;
             }
         }
 
-        return $ret;
+        return $messages;
     }
         }
     static public function loadCommentsByAddresserId($conn, $addresserId){
@@ -181,11 +181,11 @@ class Message {
             $Message->creationDate = $row['creation_date'];
             $Message->ifRead = $row['if_read'];
 
-                $ret[] = $Message;
+                $messages[] = $Message;
             }
         }
 
-        return $ret;
+        return $messages;
     }
         }
 

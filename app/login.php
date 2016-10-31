@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <div class="container">
             <div class="well">
-                <h3 class="text-primary"><center>Welcome in your Tweeter World! Please Log In.</center></h3>
+                <h3 class="text-primary"><center>Welcome in Ćwierkator! Please Log In.</center></h3>
             </div>
             <div class="form-group">
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <input class="form-control" type="email" name="email" placeholder="Email address"><br>
                         </div>
 
-                        <label class="col-lg-2 control-label" for="password">Passowrd</label>
+                        <label class="col-lg-2 control-label" for="password">Password</label>
                         <div class="col-lg-10">
                             <input class="form-control" type="password" name="password" placeholder="Password"><br>
                         </div>  

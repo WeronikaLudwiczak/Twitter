@@ -14,7 +14,7 @@ class Message {
         $this->senderId = "";
         $this->addresserId = "";
         $this->creationDate = "";
-        $this->ifRead = 1;
+        $this->ifRead = 0;
     }
     public function getId() {
         return $this->id;
@@ -60,11 +60,8 @@ class Message {
 
     public function setIfRead($ifRead) {
         $this->ifRead=$ifRead;
-                if($ifRead == 1){
-            echo 'Wiadomosc przeczytana';
-        }else if($ifRead == 0){
-            echo'Wiadomosc nieprzeczytana';
-        }
+               
+       
         
         
     }

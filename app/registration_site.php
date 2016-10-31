@@ -61,12 +61,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
           <input class="form-control" type="text" name="username" placeholder="User Name"><br>
       </div>
     
-    <label class="col-lg-2 control-label" for="password">Passowrd</label>
+    <label class="col-lg-2 control-label" for="password">Password</label>
       <div class="col-lg-10">
           <input class="form-control" type="password" name="password1" placeholder="Password"><br>
       </div>  
         
-    <label class="col-lg-2 control-label" for="password">Confirmed your Passowrd</label>
+    <label class="col-lg-2 control-label" for="password">Confirmed your Password</label>
       <div class="col-lg-10">
           <input class="form-control" type="password" name="password2" placeholder="Password"><br>
       </div>

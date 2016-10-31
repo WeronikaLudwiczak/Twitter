@@ -53,7 +53,7 @@ foreach ($recivedMessages as $recivedMessage) {
                     echo "...";
                 }
     
-    echo "<td><a href='send_message.php?userId={$recivedMessage->getAddresserId()}'>Send Message</td>";
+    echo "<td><a href='send_message.php?userId={$recivedMessage->getSenderId()}'>Send Message</td>";
     echo "<td>{$recivedMessage->getCreationDate()}<td>";
 
     if ($recivedMessage->getIfRead() == 1) {

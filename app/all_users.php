@@ -51,9 +51,10 @@ $allUsers = User::loadAllUsers($conn);
     <tr class="active">
         <td><?php   echo "{$user->getUsername()}";?></td>
         <td><?php   echo "{$user->getEmail()}";?></td>
-        <td><?php   echo "<a class='btn btn-link' href='member_profile.php?user={$user->getId()}'>Show Profile</a><br>";?></td>
+        <td><?php   echo "<a class='btn btn-link' href='member_profile.php?user={$user->getId()}'>Show Profile</a><br>";?>
+        <?php   echo "<a class='btn btn-link' href='send_message.php?userId={$user->getId()}'>Send Message</td>";?></td>
         <?php
         }
     }
-}
+  }
    

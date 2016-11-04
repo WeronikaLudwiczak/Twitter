@@ -90,7 +90,7 @@ foreach($sentMessaages as $sentMessage){
                 }
     
   
-    echo "<td>{$recivedMessage->getCreationDate()}<td>";
+    echo "<td>{$sentMessage->getCreationDate()}<td>";
 
  
 }

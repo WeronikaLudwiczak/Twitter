@@ -10,10 +10,8 @@ if (isset($_SESSION['loggedUserId'])) {
     $loggedUser = User::loadUserById($conn, $_SESSION['loggedUserId']);
 } else {
     echo "Error. Please log In again.";
-    
-    
 }
-    if( isset($_GET['userId'])){
+if( isset($_GET['userId'])){
     $addresserId=$_GET['userId'];
     $addresser=  User::loadUserById($conn,$addresserId );
     
@@ -72,6 +70,7 @@ include 'menu.html';
     $newMessage->setText($_POST['newMessage']);
     $newMessage->setIfRead(1);
     $newMessage->saveToDB($conn);
+    header("Location:messages_site.php");
     
     
 }

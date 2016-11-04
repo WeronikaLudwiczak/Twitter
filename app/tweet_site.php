@@ -24,9 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new_comment']) && strl
     $newComment->setUserId($_SESSION['loggedUserId']);
     $newComment->saveToDB($conn);
     header("Location: tweet_site.php?tweet_id={$tweet_id}");
-} else {
-    echo "Write your comment";
-}
+} 
 ?>
 
 

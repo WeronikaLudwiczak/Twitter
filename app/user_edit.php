@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <ul class="nav navbar-nav">
                         <li ><a href='user_site.php'>Your Profile</a></li>
                         <li><a href="all_users.php">Users</a></li>
-                        <li><a href="#">Comments</a></li>
+                        <li><a href="messages_site.php">Messages</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

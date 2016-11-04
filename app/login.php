@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <div class="container">
             <div class="well">
-                <h3 class="text-primary"><center>Welcome in Ćwierkator! Please Log In.</center></h3>
+                <h3 class="text-primary"><center>Welcome in Tweeter World! Please Log In.</center></h3>
             </div>
             <div class="form-group">
 

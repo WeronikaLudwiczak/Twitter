@@ -1,1 +1,5 @@
-scripts
+/scripts/
+/vendor/
+/private/
+
+phpunit.xml

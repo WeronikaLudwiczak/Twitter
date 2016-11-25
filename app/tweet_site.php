@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new_comment']) && strl
     <head>
         <title>Tweet Page</title>
         <meta charset="UTF-8">
-        <link href="../css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
     </head>
     <body>
         <p>Logged as: <a href="user_site.php" class="btn btn-link"><?php echo $loggedUser->getUsername(); ?></a></p>

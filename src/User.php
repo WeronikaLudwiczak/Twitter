@@ -94,7 +94,7 @@ class User {
 
         return NULL;
     }
-        static public function loadAllUsers(mysqli $conn) {
+    static public function loadAllUsers(mysqli $conn) {
       
         $sql = "SELECT * FROM User;";
 

@@ -26,7 +26,7 @@ if( isset($_GET['userId'])){
 <head>
     <title>Send Message</title>
     <meta charset="UTF-8">
-    <link href="../css/style.css" rel="stylesheet">
+    <link <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
 </head>
 <body>
     <p>Logged as: <a href="#" class="btn btn-link"><?php echo $loggedUser->getUsername();?></a></p>
@@ -48,7 +48,7 @@ include 'menu.html';
                             <div class="col-sm-8">
                                 <input class="form-control" type="text" name="newMessage">
                            </div>
-                           <input  type="submit" value="Send">
+                           <button type="submit" class="btn btn-default">Send</button>
                            </form>';
                     }
                 }

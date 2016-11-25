@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' and isset($_GET['user'])) {
     <head>
         <title><?php echo "{$member->getUsername()}" ?> Profile</title>
         <meta charset="UTF-8">
-        <link href="../css/style.css" rel="stylesheet">
+        <link <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
     </head>
     <body>
         <p>Logged as: <a href="user_site.php" class="btn btn-link"><?php echo $loggedUser->getUsername(); ?></a></p>

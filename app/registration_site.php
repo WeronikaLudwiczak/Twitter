@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <head>
     <title>Registration</title>
     <meta charset="UTF-8">
-    <link href="../css/style.css" rel="stylesheet">
+    <link <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
 </head>
 <body>
 <div class="container">

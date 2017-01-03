@@ -1,6 +1,6 @@
 <?php
 
-require_once '../src/User.php';
+use src\classes\User  as User;
 require_once 'dbConnection.php';
 
 

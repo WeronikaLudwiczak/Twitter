@@ -1,6 +1,7 @@
 <?php
-require_once '../src/Tweet.php';
-require_once '../src/User.php';
+use src\classes\User  as User;
+use src\classes\Tweet as Tweet;
+use src\classes\Comment as Comment;
 require_once 'dbConnection.php';
 
 redirectIfNotLogged();

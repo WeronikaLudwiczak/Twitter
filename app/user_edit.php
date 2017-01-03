@@ -1,7 +1,7 @@
 <?php
-require_once '../src/Tweet.php';
-require_once '../src/User.php';
+use src\classes\User  as User;
 require_once 'dbConnection.php';
+
 redirectIfNotLogged();
 
 
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </nav>
         <form  method="POST" method ="post" class="form-horizontal">
-            <fieldset>
+
                 <legend><strong>Update your Profile</strong></legend>
 
                 <label class="col-lg-2 control-label" for="username">User Name</label>

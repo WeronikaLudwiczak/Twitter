@@ -1,6 +1,6 @@
 <?php
+use src\classes\Comment as Comment;
 
-require 'src/Comment.php';
 
 class commentTest extends PHPUnit_Extensions_Database_TestCase{
     

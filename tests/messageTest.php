@@ -1,6 +1,8 @@
 <?php
 
-require 'src/Message.php';
+use src\classes\Message as Message;
+
+
 
 class commentTest extends PHPUnit_Extensions_Database_TestCase{
     

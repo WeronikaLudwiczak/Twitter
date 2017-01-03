@@ -1,11 +1,13 @@
 <?php
 
-require "src/User.php";
+use src\classes\User as User;
+
+
 
 class userTest extends PHPUnit_Extensions_Database_TestCase{
     
     
-        static private $pdo = null;
+    static private $pdo = null;
 	private $conn = null;
 
 

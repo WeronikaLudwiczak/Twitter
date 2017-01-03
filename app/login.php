@@ -1,6 +1,7 @@
 
 <?php
-require_once '../src/User.php';
+
+use src\classes\User  as User;
 require_once 'dbConnection.php';
 
 
@@ -31,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
 
                 <form  method="POST" method ="post" class="form-horizontal">
-                    <fieldset>
                         <legend><strong>Form</strong></legend>
 
                         <label  class="col-lg-2 control-label" for="mail">Email</label>

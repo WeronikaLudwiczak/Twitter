@@ -1,14 +1,14 @@
 <?php
 
 
-require_once 'src/Tweet.php';
+use src\classes\Tweet as Tweet;
 
 
 
 class tweetTest extends PHPUnit_Extensions_Database_TestCase{
     
     
-        static private $pdo = null;
+    static private $pdo = null;
 	private $conn = null;
 
 

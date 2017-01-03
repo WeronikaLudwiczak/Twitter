@@ -1,21 +1,18 @@
 <?php
 session_start();
-
-require_once '../src/User.php';
-require_once '../src/Tweet.php';
-require_once '../src/Comment.php';
-require_once '../src/Message.php';
-
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once "../scripts/config.php";
+
      
-    $conn = new mysqli($host, $user, $password, $dbName);
+$conn = new mysqli($host, $user, $password, $dbName);
+
     if ($conn->connect_error == False) {
      return $conn;
     
     }else {
          die('Unable to connect to database: ' . $conn->connect_error);
     
-}
+    }
 
     
 

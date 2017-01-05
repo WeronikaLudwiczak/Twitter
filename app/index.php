@@ -1,8 +1,7 @@
 <?php
-use src\classes\User  as User;
+use src\classes\User as User;
 use src\classes\Comment as Comment;
 use src\classes\Tweet as Tweet;
-
 
 
 require_once 'dbConnection.php';
@@ -25,59 +24,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['newTweet'])) {
         $newTweet->setCreationDate($date);
         $newTweet->saveToDB($conn);
     } else {
-        echo ('<div class="alert alert-dismissible alert-info">Write your Tweet</div>');
+        echo('<div class="alert alert-dismissible alert-info">Write your Tweet</div>');
     }
 }
 ?>
 
-<html>
+    <html>
     <head>
         <title>Home Page</title>
         <meta charset="UTF-8">
-        <link <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
+        <link
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
     </head>
     <body>
-        <p>Logged as: <a href="#" class="btn btn-link"><?php echo $loggedUser->getUsername(); ?></a></p>
+    <p>Logged as: <a href="#" class="btn btn-link"><?php echo $loggedUser->getUsername(); ?></a></p>
 
-<?php
-include 'menu.html';
-?>
+    <?php
+    include 'menu.html';
+    ?>
 
 
-        <section>
-            <div class="container">
-                <form  method="post" class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Write your Tweet:</label>
-                        <div class="col-sm-7 form-group">
-                            <input  class="form-control" type="text" name="newTweet"  style="height: 100px">        
-                        </div>
+    <section>
+        <div class="container">
+            <form method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Write your Tweet:</label>
+                    <div class="col-sm-7 form-group">
+                        <input class="form-control" type="text" name="newTweet" style="height: 100px">
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3">
-                            <button type="submit" class="btn btn-default">Add your Tweet</button>
-                        </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3">
+                        <button type="submit" class="btn btn-default">Add your Tweet</button>
                     </div>
+                </div>
 
-                </form>
-            </div>
-            <br>
-        </section>
-        <h2 class="text-primary">All Tweets</h2>
-        <table class="table table-striped table-hover ">
-            <thead>
-                <tr>
+            </form>
+        </div>
+        <br>
+    </section>
+    <h2 class="text-primary">All Tweets</h2>
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
 
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Tweet</th>
-                    <th>Comments</th>
-                    <th>Action</th>
-            </thead>
-<?php
-$allTweets = Tweet::loadAllTweets($conn);
-if ($allTweets) {
-    foreach ($allTweets as $tweet) {
+            <th>Date</th>
+            <th>User</th>
+            <th>Tweet</th>
+            <th>Comments</th>
+            <th>Action</th>
+        </thead>
+        <?php
+        $allTweets = Tweet::loadAllTweets($conn);
+        if ($allTweets) {
+        foreach ($allTweets as $tweet) {
         $userId = $tweet->getUserId();
         $user = User::loadUserById($conn, $userId);
         $comments = Comment::getCommentByTweetId($conn, $tweet->getId());
@@ -88,28 +88,29 @@ if ($allTweets) {
         }
         ?>
 
-                    <tbody>
-                        <tr class="active">
-                            <td><?php echo "{$tweet->getCreationDate()}"; ?></td>
-                            <td><?php echo "{$user->getUsername()}"; ?></td>
-                            <td><?php echo "{$tweet->getText()}"; ?></td>
-                            <td><?php echo "$numberOfComments"; ?></td>
-                            <td><?php echo ("<a  href='tweet_site.php?tweet_id={$tweet->getId()}' class='btn btn-link' >More about Tweet</a></td>"); ?>    </tr>
+        <tbody>
+        <tr class="active">
+            <td><?php echo "{$tweet->getCreationDate()}"; ?></td>
+            <td><?php echo "{$user->getUsername()}"; ?></td>
+            <td><?php echo "{$tweet->getText()}"; ?></td>
+            <td><?php echo "$numberOfComments"; ?></td>
+            <td><?php echo("<a  href='tweet_site.php?tweet_id={$tweet->getId()}' class='btn btn-link' >More about Tweet</a></td>"); ?>
+        </tr>
 
         <?php
-    }
-} else {
-    echo "No Tweets";
-}
-?>
+        }
+        } else {
+            echo "No Tweets";
+        }
+        ?>
 
 
-            <section>
+        <section>
 
-            </section>
+        </section>
 
     </body>
-</html>
+    </html>
 <?php
 $conn->close();
 $conn = null;

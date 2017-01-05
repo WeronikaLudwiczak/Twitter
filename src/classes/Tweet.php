@@ -1,51 +1,62 @@
 <?php
 namespace src\classes;
+
 use Mysqli;
 
-class Tweet {
+class Tweet
+{
     private $id;
     private $userId;
     private $text;
     private $creationDate;
-    
-    
-    public function __construct() {
+
+
+    public function __construct()
+    {
         $this->id = -1;
         $this->userId = "";
         $this->text = "";
         $this->creationDate = "";
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->userId;
     }
 
-    public function getText() {
+    public function getText()
+    {
         return $this->text;
     }
 
-    public function getCreationDate() {
+    public function getCreationDate()
+    {
         return $this->creationDate;
     }
 
-    public function setUserId($userId) {
+    public function setUserId($userId)
+    {
         $this->userId = $userId;
     }
-    
-    public function setText($text) {
-        $this->text=$text;
-  
+
+    public function setText($text)
+    {
+        $this->text = $text;
+
     }
 
-    public function setCreationDate($creationDate) {
+    public function setCreationDate($creationDate)
+    {
         $this->creationDate = $creationDate;
     }
-    
-    public function saveToDB(mysqli $conn) {
+
+    public function saveToDB(mysqli $conn)
+    {
         if ($this->id == -1) {
             $sql = "INSERT INTO Tweets(creation_date, content, user_id) VALUES('$this->creationDate', '$this->text', '$this->userId');";
 
@@ -56,22 +67,22 @@ class Tweet {
             }
         } else {
             $sql = "UPDATE Tweets SET creation_date='$this->creationDate',"
-                                 . "content='$this->text',"
-                                 . "user_id='$this->userId'"
-                 . "WHERE id=$this->id;";
-            
+                . "content='$this->text',"
+                . "user_id='$this->userId'"
+                . "WHERE id=$this->id;";
+
             $result = $conn->query($sql);
-            
-            if($result == TRUE)
-            {
+
+            if ($result == TRUE) {
                 return TRUE;
             }
         }
 
         return FALSE;
     }
-    
-    static public function loadTweetById(mysqli $conn, $id) {
+
+    static public function loadTweetById(mysqli $conn, $id)
+    {
         $sql = "SELECT * FROM Tweets WHERE id=$id;";
         $result = $conn->query($sql);
 
@@ -89,7 +100,9 @@ class Tweet {
 
         return NULL;
     }
-    static public function loadAllTweets(mysqli $conn) {
+
+    static public function loadAllTweets(mysqli $conn)
+    {
         $sql = "SELECT * FROM Tweets ORDER BY creation_date DESC;";
 
         $result = $conn->query($sql);
@@ -110,16 +123,18 @@ class Tweet {
 
         return $ret;
     }
-    static public function loadAllTweetByUserId($conn, $userId){
-        
-           $query = "SELECT * FROM Tweets WHERE user_id='$userId' ORDER BY creation_date DESC";
+
+    static public function loadAllTweetByUserId($conn, $userId)
+    {
+
+        $query = "SELECT * FROM Tweets WHERE user_id='$userId' ORDER BY creation_date DESC";
         $result = $conn->query($query);
-       
+
         $tweets = array();
-        
-      if($result !== false){  
-        if($result->num_rows > 0){
-                foreach($result as $row){
+
+        if ($result !== false) {
+            if ($result->num_rows > 0) {
+                foreach ($result as $row) {
                     $tweet = new Tweet();
                     $tweet->id = $row['id'];
                     $tweet->userId = $row['user_id'];
@@ -128,18 +143,17 @@ class Tweet {
                     $tweets[] = $tweet;
                 }
                 return $tweets;
-    
-       } else {
-            return false;
+
+            } else {
+                return false;
             }
         } else {
             return false;
         }
-    
-    
-}
-  
-        
-    
+
+
     }
+
+
+}
 

@@ -3,59 +3,72 @@ namespace src\classes;
 
 use Mysqli;
 
-class Comment {
-    
+class Comment
+{
+
     private $id;
     private $userId;
     private $tweetId;
     private $creationDate;
     private $text;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->id = -1;
         $this->userId = "";
         $this->tweetId = "";
         $this->creationDate = "";
         $this->text = "";
     }
-    
-    
-    public function getId() {
+
+
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->userId;
     }
 
-    public function getTweetId() {
+    public function getTweetId()
+    {
         return $this->tweetId;
     }
 
-    public function getCreationDate() {
+    public function getCreationDate()
+    {
         return $this->creationDate;
     }
-    
-    public function getText() {
+
+    public function getText()
+    {
         return $this->text;
     }
 
-    public function setUserId($userId) {
+    public function setUserId($userId)
+    {
         $this->userId = $userId;
     }
 
-    public function setTweetId($tweetId) {
+    public function setTweetId($tweetId)
+    {
         $this->tweetId = $tweetId;
     }
 
-    public function setCreationDate($creationDate) {
+    public function setCreationDate($creationDate)
+    {
         $this->creationDate = $creationDate;
     }
-    public function setText($text) {
+
+    public function setText($text)
+    {
         $this->text = $text;
     }
-    
-    public function saveToDB(mysqli $conn) {
+
+    public function saveToDB(mysqli $conn)
+    {
         if ($this->id == -1) {
             $sql = "INSERT INTO Comment(user_id, tweet_id, creation_date, text) VALUES('$this->userId', '$this->tweetId', '$this->creationDate', '$this->text');";
 
@@ -66,21 +79,21 @@ class Comment {
             }
         } else {
             $sql = "UPDATE Comment SET creation_date='$this->creationDate'"
-                                 . "text='$this->text"
-                                 . "WHERE id=$this->id;";
-            
+                . "text='$this->text"
+                . "WHERE id=$this->id;";
+
             $result = $conn->query($sql);
-            
-            if($result == TRUE)
-            {
+
+            if ($result == TRUE) {
                 return TRUE;
             }
         }
 
         return FALSE;
     }
-        
-    static public function loadCommentById(mysqli $conn, $id) {
+
+    static public function loadCommentById(mysqli $conn, $id)
+    {
         $sql = "SELECT * FROM Comment WHERE id=$id;";
         $result = $conn->query($sql);
 
@@ -99,17 +112,18 @@ class Comment {
 
         return NULL;
     }
-    
-    static public function getCommentByTweetId($conn, $tweetId) {
-        
+
+    static public function getCommentByTweetId($conn, $tweetId)
+    {
+
         $query = "SELECT * FROM Comment WHERE tweet_id='$tweetId' ORDER BY creation_date DESC";
         $result = $conn->query($query);
-       
+
         $comments = array();
-        
-      if($result !== false){  
-        if($result->num_rows > 0){
-                foreach($result as $row){
+
+        if ($result !== false) {
+            if ($result->num_rows > 0) {
+                foreach ($result as $row) {
                     $comment = new Comment();
                     $comment->id = $row['id'];
                     $comment->userId = $row['user_id'];
@@ -119,15 +133,15 @@ class Comment {
                     $comments[] = $comment;
                 }
                 return $comments;
-    
-       } else {
-            return false;
+
+            } else {
+                return false;
             }
         } else {
             return false;
         }
-    
-    
-}
+
+
+    }
 
 }

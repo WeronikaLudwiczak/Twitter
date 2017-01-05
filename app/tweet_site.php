@@ -1,8 +1,7 @@
 <?php
-use src\classes\User  as User;
+use src\classes\User as User;
 use src\classes\Comment as Comment;
 use src\classes\Tweet as Tweet;
-
 
 
 require_once 'dbConnection.php';
@@ -27,62 +26,61 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new_comment']) && strl
     $newComment->setUserId($_SESSION['loggedUserId']);
     $newComment->saveToDB($conn);
     header("Location: tweet_site.php?tweet_id={$tweet_id}");
-} 
+}
 ?>
 
 
-
 <html>
-    <head>
-        <title>Tweet Page</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
-    </head>
-    <body>
-        <p>Logged as: <a href="user_site.php" class="btn btn-link"><?php echo $loggedUser->getUsername(); ?></a></p>
+<head>
+    <title>Tweet Page</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
+</head>
+<body>
+<p>Logged as: <a href="user_site.php" class="btn btn-link"><?php echo $loggedUser->getUsername(); ?></a></p>
 
-      <?php
-      include 'menu.html';
-      
-      ?>
-        <h3>Tweet details: </h3>
+<?php
+include 'menu.html';
 
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $tweetId = $_GET['tweet_id'];
-            $tweet = Tweet::loadTweetById($conn, $tweetId);
-            $userId = $tweet->getUserId();
-            $userTweet = User::loadUserById($conn, $userId);
+?>
+<h3>Tweet details: </h3>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $tweetId = $_GET['tweet_id'];
+    $tweet = Tweet::loadTweetById($conn, $tweetId);
+    $userId = $tweet->getUserId();
+    $userTweet = User::loadUserById($conn, $userId);
 
 
-            echo "<p><strong>Creation date: </strong>" . $tweet->getCreationDate() . "</p>";
-            echo "<p><strong>User Name: </strong>" . $userTweet->getUsername() . "</p>";
-            echo '
+    echo "<p><strong>Creation date: </strong>" . $tweet->getCreationDate() . "</p>";
+    echo "<p><strong>User Name: </strong>" . $userTweet->getUsername() . "</p>";
+    echo '
         <div class="well" style="width: 50%">
             <p><strong>Tweet: </strong>' . $tweet->getText() . '</p>
         </div>';
-            ?>
-            <section>
-                <div class="container">
-                    <form  method="post" class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Write your Comment:</label>
-                            <div class="col-sm-7 form-group">
-                                <input  class="form-control" type="text" name="new_comment"  style="height: 100px">        
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-3">
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </div>
-                        </div>
-
-                    </form>
+    ?>
+    <section>
+        <div class="container">
+            <form method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Write your Comment:</label>
+                    <div class="col-sm-7 form-group">
+                        <input class="form-control" type="text" name="new_comment" style="height: 100px">
+                    </div>
                 </div>
-                <br>
-            </section>
+                <div class="form-group">
+                    <div class="col-sm-offset-3">
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <br>
+    </section>
     <?php
-    
+
     $comments = Comment::getCommentByTweetId($conn, $tweetId);
     if ($comments !== false) {
         $numberOfComments = count($comments);
@@ -121,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new_comment']) && strl
 }
 ?>
 
-    </body>
+</body>
 </html>
 
 

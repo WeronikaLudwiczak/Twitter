@@ -1,58 +1,68 @@
 <?php
 
 namespace src\classes;
+
 use Mysqli;
 
-class User {
-    
+class User
+{
+
     private $id;
     private $email;
     private $username;
     private $hashedPassword;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->id = -1;
         $this->email = null;
         $this->username = null;
         $this->hashedPassword = null;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function getHashedPassword() {
+    public function getHashedPassword()
+    {
         return $this->hashedPassword;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
 
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
     }
 
-    public function setPassword($password1, $password2) {
-        if($password1 != $password2){
+    public function setPassword($password1, $password2)
+    {
+        if ($password1 != $password2) {
             return false;
         }
-        $hashedPassword = password_hash($password1,PASSWORD_BCRYPT);
+        $hashedPassword = password_hash($password1, PASSWORD_BCRYPT);
         $this->hashedPassword = $hashedPassword;
         return true;
     }
-    
-    
 
-    public function saveToDB(mysqli $conn) {
+
+    public function saveToDB(mysqli $conn)
+    {
         if ($this->id == -1) {
             $sql = "INSERT INTO User(email, username, hashed_password) VALUES('$this->email', '$this->username', '$this->hashedPassword');";
 
@@ -63,14 +73,14 @@ class User {
             }
         } else {
             $sql = "UPDATE User SET email='$this->email',"
-                                 . "username='$this->username',"
-                                 . "hashed_password='$this->hashedPassword'"
-                 . "WHERE id=$this->id;";
-            
+                . "username='$this->username',"
+                . "hashed_password='$this->hashedPassword'"
+                . "WHERE id=$this->id;";
+
             $result = $conn->query($sql);
-            
-            if($result == TRUE){
-            
+
+            if ($result == TRUE) {
+
                 return TRUE;
             }
         }
@@ -78,7 +88,8 @@ class User {
         return FALSE;
     }
 
-    static public function loadUserById(mysqli $conn, $id) {
+    static public function loadUserById(mysqli $conn, $id)
+    {
         $sql = "SELECT * FROM User WHERE id=$id;";
         $result = $conn->query($sql);
 
@@ -96,8 +107,10 @@ class User {
 
         return NULL;
     }
-    static public function loadAllUsers(mysqli $conn) {
-      
+
+    static public function loadAllUsers(mysqli $conn)
+    {
+
         $sql = "SELECT * FROM User;";
 
         $result = $conn->query($sql);
@@ -118,9 +131,8 @@ class User {
 
         return $users;
     }
-    
 
-    
+
     static public function LogIn(mysqli $conn, $email, $password)
     {
         $toReturn = null;
@@ -134,8 +146,8 @@ class User {
                 $loggedUser->email = $row['email'];
                 $loggedUser->username = $row['username'];
                 $loggedUser->hashedPassword = $row['hashed_password'];
-           
-                
+
+
                 if ($loggedUser->verifyPassword($password)) {
                     $toReturn = $loggedUser;
                 }
@@ -145,26 +157,27 @@ class User {
     }
 
 
-    public function delete(mysqli $conn){
-        if($this->id != -1){
+    public function delete(mysqli $conn)
+    {
+        if ($this->id != -1) {
             $sql = "DELETE FROM User WHERE id=$this->id";
             $result = $conn->query($sql);
-                if($result == true){
-                    $this->id = -1;
-                    return true;
-                    }
-                    return false;
+            if ($result == true) {
+                $this->id = -1;
+                return true;
+            }
+            return false;
 
-                        }   
-                    return true;
         }
-    
-        
-   public function verifyPassword($password)
+        return true;
+    }
+
+
+    public function verifyPassword($password)
     {
         return password_verify($password, $this->hashedPassword);
     }
 
-    
+
 }
         
